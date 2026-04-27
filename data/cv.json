@@ -1,0 +1,88 @@
+{
+  "personal": {
+    "name": "Alex Rivera",
+    "title": "Full-Stack Engineer",
+    "location": "San Francisco, CA",
+    "email": "alex.rivera@email.com",
+    "github": "github.com/alexrivera",
+    "linkedin": "linkedin.com/in/alexrivera",
+    "summary": "Passionate engineer with 8+ years building scalable web applications and data pipelines. Loves turning complex problems into elegant solutions."
+  },
+  "experience": [
+    {
+      "id": "exp1",
+      "company": "DataStream Inc.",
+      "role": "Senior Software Engineer",
+      "start": "2021-03",
+      "end": null,
+      "description": "Led migration of monolith to microservices, reducing latency by 40%. Built real-time data pipelines processing 1M+ events/day.",
+      "skills": ["Python", "Kubernetes", "Kafka", "React", "PostgreSQL"]
+    },
+    {
+      "id": "exp2",
+      "company": "Nexus Labs",
+      "role": "Software Engineer",
+      "start": "2018-06",
+      "end": "2021-02",
+      "description": "Developed customer-facing dashboards and REST APIs. Improved test coverage from 30% to 85%.",
+      "skills": ["JavaScript", "Node.js", "Vue.js", "MySQL", "Docker"]
+    },
+    {
+      "id": "exp3",
+      "company": "Bright Startup",
+      "role": "Junior Developer",
+      "start": "2016-08",
+      "end": "2018-05",
+      "description": "Built and maintained e-commerce platform features. Integrated third-party payment APIs.",
+      "skills": ["JavaScript", "PHP", "jQuery", "MySQL"]
+    }
+  ],
+  "education": [
+    {
+      "id": "edu1",
+      "institution": "UC Berkeley",
+      "degree": "B.Sc. Computer Science",
+      "start": "2012-08",
+      "end": "2016-05",
+      "gpa": "3.8"
+    }
+  ],
+  "skills": [
+    { "name": "Python",      "category": "Languages",  "level": 95 },
+    { "name": "JavaScript",  "category": "Languages",  "level": 92 },
+    { "name": "TypeScript",  "category": "Languages",  "level": 80 },
+    { "name": "Go",          "category": "Languages",  "level": 65 },
+    { "name": "PHP",         "category": "Languages",  "level": 55 },
+    { "name": "React",       "category": "Frontend",   "level": 90 },
+    { "name": "Vue.js",      "category": "Frontend",   "level": 78 },
+    { "name": "D3.js",       "category": "Frontend",   "level": 75 },
+    { "name": "CSS/SASS",    "category": "Frontend",   "level": 82 },
+    { "name": "Node.js",     "category": "Backend",    "level": 88 },
+    { "name": "FastAPI",     "category": "Backend",    "level": 85 },
+    { "name": "GraphQL",     "category": "Backend",    "level": 72 },
+    { "name": "PostgreSQL",  "category": "Data",       "level": 88 },
+    { "name": "MySQL",       "category": "Data",       "level": 80 },
+    { "name": "MongoDB",     "category": "Data",       "level": 70 },
+    { "name": "Kafka",       "category": "Data",       "level": 78 },
+    { "name": "Redis",       "category": "Data",       "level": 74 },
+    { "name": "Docker",      "category": "DevOps",     "level": 88 },
+    { "name": "Kubernetes",  "category": "DevOps",     "level": 80 },
+    { "name": "AWS",         "category": "DevOps",     "level": 82 },
+    { "name": "CI/CD",       "category": "DevOps",     "level": 85 },
+    { "name": "Git",         "category": "DevOps",     "level": 95 }
+  ],
+  "projects": [
+    {
+      "name": "OpenMetrics",
+      "description": "Open-source observability toolkit with 1.2k GitHub stars",
+      "url": "github.com/alexrivera/openmetrics",
+      "tech": ["Python", "Kafka", "Grafana"]
+    },
+    {
+      "name": "LiveBoard",
+      "description": "Real-time collaborative whiteboard built with WebSockets",
+      "url": "github.com/alexrivera/liveboard",
+      "tech": ["React", "Node.js", "Redis"]
+    }
+  ]
+}
