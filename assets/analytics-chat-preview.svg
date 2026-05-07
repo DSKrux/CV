@@ -1,0 +1,64 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="630" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F7F0E5"/>
+      <stop offset="1" stop-color="#ECE4D6"/>
+    </linearGradient>
+    <linearGradient id="panel" x1="100" y1="90" x2="1100" y2="560" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFCF7" stop-opacity="0.96"/>
+      <stop offset="1" stop-color="#F3F8F6" stop-opacity="0.92"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#E07A32"/>
+      <stop offset="1" stop-color="#EE9A5F"/>
+    </linearGradient>
+    <filter id="shadow" x="60" y="60" width="1080" height="520" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#202A27" flood-opacity="0.16"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <circle cx="1030" cy="82" r="130" fill="#E07A32" fill-opacity="0.18"/>
+  <circle cx="115" cy="560" r="120" fill="#1E7F76" fill-opacity="0.16"/>
+
+  <g filter="url(#shadow)">
+    <rect x="96" y="78" width="1008" height="474" rx="28" fill="url(#panel)" stroke="#1F2B28" stroke-opacity="0.1"/>
+  </g>
+
+  <rect x="132" y="116" width="350" height="26" rx="13" fill="#1E7F76" fill-opacity="0.12"/>
+  <text x="149" y="134" fill="#1E7F76" font-size="12" font-family="Inter, Segoe UI, Arial" font-weight="700" letter-spacing="1.2">CONVERSATIONAL ANALYTICS DEMO</text>
+
+  <text x="132" y="184" fill="#132522" font-size="52" font-family="Georgia, 'Times New Roman', serif" font-weight="700">Analytics Chat</text>
+  <text x="132" y="224" fill="#132522" font-size="52" font-family="Georgia, 'Times New Roman', serif" font-weight="700">Natural Language → SQL</text>
+
+  <text x="132" y="268" fill="#566661" font-size="22" font-family="Inter, Segoe UI, Arial">Ask plain-English retail questions and get generated SQL</text>
+  <text x="132" y="298" fill="#566661" font-size="22" font-family="Inter, Segoe UI, Arial">with polished charts, metrics, and transparent query output.</text>
+
+  <rect x="132" y="336" width="182" height="44" rx="12" fill="url(#accent)"/>
+  <text x="223" y="364" text-anchor="middle" fill="white" font-size="16" font-family="Inter, Segoe UI, Arial" font-weight="700">Live Demo</text>
+
+  <rect x="332" y="336" width="198" height="44" rx="12" fill="#FFFFFF" stroke="#1F2B28" stroke-opacity="0.18"/>
+  <text x="431" y="364" text-anchor="middle" fill="#132522" font-size="16" font-family="Inter, Segoe UI, Arial" font-weight="700">Source Code</text>
+
+  <rect x="640" y="128" width="418" height="330" rx="20" fill="#FFFFFF" fill-opacity="0.74" stroke="#1F2B28" stroke-opacity="0.09"/>
+  <text x="668" y="166" fill="#132522" font-size="20" font-family="Inter, Segoe UI, Arial" font-weight="700">Sample Questions</text>
+
+  <rect x="668" y="188" width="362" height="40" rx="10" fill="#F5F2EC"/>
+  <text x="684" y="213" fill="#364845" font-size="15" font-family="Inter, Segoe UI, Arial">Monthly revenue trend since 2023</text>
+
+  <rect x="668" y="238" width="362" height="40" rx="10" fill="#F5F2EC"/>
+  <text x="684" y="263" fill="#364845" font-size="15" font-family="Inter, Segoe UI, Arial">Return rate by channel</text>
+
+  <rect x="668" y="288" width="362" height="40" rx="10" fill="#F5F2EC"/>
+  <text x="684" y="313" fill="#364845" font-size="15" font-family="Inter, Segoe UI, Arial">Top 10 customers by total spend</text>
+
+  <rect x="668" y="348" width="172" height="80" rx="14" fill="#FFF9EF" stroke="#E07A32" stroke-opacity="0.25"/>
+  <text x="684" y="376" fill="#8C5A36" font-size="12" font-family="Inter, Segoe UI, Arial" font-weight="700">GROSS REVENUE</text>
+  <text x="684" y="408" fill="#132522" font-size="28" font-family="Inter, Segoe UI, Arial" font-weight="700">$3.2M</text>
+
+  <rect x="858" y="348" width="172" height="80" rx="14" fill="#EFF7F4" stroke="#1E7F76" stroke-opacity="0.25"/>
+  <text x="874" y="376" fill="#2B6F68" font-size="12" font-family="Inter, Segoe UI, Arial" font-weight="700">ORDERS</text>
+  <text x="874" y="408" fill="#132522" font-size="28" font-family="Inter, Segoe UI, Arial" font-weight="700">2,000</text>
+
+  <text x="132" y="500" fill="#6A7A76" font-size="16" font-family="Inter, Segoe UI, Arial">Powered by Streamlit · DuckDB · Plotly · OpenAI-compatible APIs</text>
+</svg>

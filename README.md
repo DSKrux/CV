@@ -2,6 +2,15 @@
 
 JavaScript + d3 visualization for the CV PDF in this repository.
 
+## Demo Preview
+
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-performer.streamlit.app-1E7F76?style=for-the-badge)](https://performer.streamlit.app/)
+[![Source](https://img.shields.io/badge/Source-analytics--chat-E07A32?style=for-the-badge)](https://github.com/DSKrux/CV/tree/main/analytics-chat)
+
+[![Analytics Chat Preview](assets/analytics-chat-preview.svg)](https://performer.streamlit.app/)
+
+Live app: https://performer.streamlit.app/
+
 ## What It Shows
 
 - Interactive PDF viewer (page navigation + zoom)
