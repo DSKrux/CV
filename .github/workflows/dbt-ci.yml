@@ -1,0 +1,113 @@
+name: dbt-ci
+
+on:
+  pull_request:
+    paths:
+      - 'dbt-portfolio/**'
+      - '.github/workflows/dbt-ci.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'dbt-portfolio/**'
+      - '.github/workflows/dbt-ci.yml'
+
+jobs:
+  # ── Full build on main ────────────────────────────────────────────────────
+  # Runs a complete seed→snapshot→build→test, then uploads the compiled
+  # manifest.json so PR slim-ci jobs can diff against it.
+  full-build:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: dbt-portfolio
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Install dbt packages
+        run: dbt deps --profiles-dir profiles --target ci
+
+      - name: Full dbt build
+        env:
+          DBT_DUCKDB_PATH: portfolio_ci.duckdb
+        run: |
+          dbt seed    --profiles-dir profiles --target ci
+          dbt snapshot --profiles-dir profiles --target ci
+          dbt build   --profiles-dir profiles --target ci
+          dbt parse   --profiles-dir profiles --target ci
+
+      - name: Upload production manifest
+        uses: actions/upload-artifact@v4
+        with:
+          name: dbt-prod-manifest
+          path: dbt-portfolio/target/manifest.json
+          retention-days: 30
+
+  # ── Slim CI on pull requests ──────────────────────────────────────────────
+  # Downloads the manifest produced by the last main build, then runs
+  # dbt build --select state:modified+ to build only what changed in this PR.
+  slim-ci:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: dbt-portfolio
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Install dbt packages
+        run: dbt deps --profiles-dir profiles --target ci
+
+      - name: Download production manifest
+        id: download-manifest
+        uses: actions/download-artifact@v4
+        with:
+          name: dbt-prod-manifest
+          path: dbt-portfolio/prod-manifest
+        continue-on-error: true   # first PR ever — no prior manifest yet
+
+      - name: Seed (always required for state comparison)
+        env:
+          DBT_DUCKDB_PATH: portfolio_ci.duckdb
+        run: dbt seed --profiles-dir profiles --target ci
+
+      - name: Slim build — modified models only
+        env:
+          DBT_DUCKDB_PATH: portfolio_ci.duckdb
+        run: |
+          if [ -f "../prod-manifest/manifest.json" ]; then
+            echo "Manifest found — running slim CI (state:modified+)"
+            dbt build \
+              --profiles-dir profiles \
+              --target ci \
+              --select "state:modified+" \
+              --state ../prod-manifest
+          else
+            echo "No prior manifest — falling back to full build"
+            dbt snapshot --profiles-dir profiles --target ci
+            dbt build    --profiles-dir profiles --target ci
+          fi

@@ -1,0 +1,6 @@
+customer_id,full_name,email,city,country,customer_status,created_at,updated_at
+1,Ava Patel,ava.patel@example.com,London,UK,active,2024-01-03 10:00:00,2024-05-15 08:22:00
+2,Noah Smith,noah.smith@example.com,Manchester,UK,active,2024-02-11 09:30:00,2024-06-10 07:30:00
+3,Sofia Garcia,sofia.garcia@example.com,Madrid,ES,active,2024-03-22 12:15:00,2024-06-09 16:40:00
+4,Liam Novak,liam.novak@example.com,Berlin,DE,churned,2024-01-28 14:50:00,2024-07-02 11:05:00
+5,Mia Rossi,mia.rossi@example.com,Milan,IT,active,2024-04-08 08:05:00,2024-07-11 10:10:00

@@ -1,0 +1,72 @@
+version: 2
+
+models:
+  - name: dim_customers
+    description: SCD2 customer dimension sourced from dbt snapshot.
+    columns:
+      - name: customer_id
+        tests: [not_null]
+      - name: is_current_record
+        tests: [not_null]
+
+  - name: dim_products
+    description: Product dimension with current product attributes.
+    columns:
+      - name: product_id
+        tests: [not_null, unique]
+      - name: unit_price
+        tests:
+          - non_negative
+
+  - name: dim_dates
+    description: Date dimension aligned to order activity.
+    columns:
+      - name: date_day
+        tests: [not_null, unique]
+
+  - name: dim_time_spine
+    description: Canonical day-grain time spine required by MetricFlow.
+    time_spine:
+      standard_granularity_column: date_day
+    columns:
+      - name: date_day
+        granularity: day
+        tests: [not_null, unique]
+
+  - name: fct_order_items
+    description: Incremental fact table at order item grain.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - order_item_id
+              - order_id
+    columns:
+      - name: order_item_sk
+        tests: [not_null, unique]
+      - name: customer_id
+        tests:
+          - relationships:
+              arguments:
+                to: ref('dim_customers')
+                field: customer_id
+      - name: product_id
+        tests:
+          - relationships:
+              arguments:
+                to: ref('dim_products')
+                field: product_id
+      - name: quantity
+        tests:
+          - non_negative
+      - name: gross_revenue
+        tests:
+          - non_negative
+      - name: net_revenue
+        tests:
+          - non_negative
+      - name: order_date
+        tests:
+          - within_last_n_days:
+              arguments:
+                days: 3650

@@ -1,0 +1,83 @@
+semantic_models:
+  - name: order_items
+    model: ref('fct_order_items')
+    defaults:
+      agg_time_dimension: order_date
+    entities:
+      - name: order_item
+        type: primary
+        expr: order_item_sk
+      - name: order
+        type: foreign
+        expr: order_id
+      - name: customer
+        type: foreign
+        expr: customer_id
+      - name: product
+        type: foreign
+        expr: product_id
+    dimensions:
+      - name: order_date
+        type: time
+        type_params:
+          time_granularity: day
+      - name: order_status
+        type: categorical
+      - name: payment_method
+        type: categorical
+    measures:
+      - name: gross_revenue
+        agg: sum
+        expr: gross_revenue
+      - name: net_revenue
+        agg: sum
+        expr: net_revenue
+      - name: quantity_sold
+        agg: sum
+        expr: quantity
+      - name: orders
+        agg: count_distinct
+        expr: order_id
+
+  - name: customers
+    model: ref('dim_customers')
+    entities:
+      - name: customer
+        type: primary
+        expr: customer_id
+    dimensions:
+      - name: customer_country
+        type: categorical
+      - name: customer_status
+        type: categorical
+
+metrics:
+  - name: revenue
+    label: Revenue
+    type: simple
+    type_params:
+      measure:
+        name: net_revenue
+
+  - name: gross_revenue_total
+    label: Gross Revenue
+    type: simple
+    type_params:
+      measure:
+        name: gross_revenue
+
+  - name: orders
+    label: Orders
+    type: simple
+    type_params:
+      measure:
+        name: orders
+
+  - name: average_order_value
+    label: Average Order Value
+    type: derived
+    type_params:
+      expr: revenue / orders
+      metrics:
+        - name: revenue
+        - name: orders

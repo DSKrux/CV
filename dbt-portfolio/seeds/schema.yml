@@ -1,0 +1,36 @@
+version: 2
+
+seeds:
+  - name: raw_customers
+    description: Raw customer records from the CRM export.
+    columns:
+      - name: customer_id
+        tests: [not_null, unique]
+      - name: email
+        tests: [not_null, unique]
+  - name: raw_products
+    description: Raw product catalog export from product master data.
+    columns:
+      - name: product_id
+        tests: [not_null, unique]
+  - name: raw_orders
+    description: Raw order headers from commerce platform.
+    columns:
+      - name: order_id
+        tests: [not_null, unique]
+      - name: customer_id
+        tests: [not_null]
+      - name: status
+        tests:
+          - accepted_values:
+              arguments:
+                values: ['completed', 'refunded', 'cancelled']
+  - name: raw_order_items
+    description: Raw order item details at order line grain.
+    columns:
+      - name: order_item_id
+        tests: [not_null, unique]
+      - name: order_id
+        tests: [not_null]
+      - name: product_id
+        tests: [not_null]

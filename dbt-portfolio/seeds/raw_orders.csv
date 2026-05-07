@@ -1,0 +1,8 @@
+order_id,customer_id,order_date,status,payment_method,updated_at
+1001,1,2024-05-01,completed,card,2024-05-01 17:00:00
+1002,2,2024-05-03,completed,card,2024-05-03 19:22:00
+1003,1,2024-05-15,refunded,bank_transfer,2024-05-20 09:15:00
+1004,3,2024-06-02,completed,card,2024-06-02 11:45:00
+1005,4,2024-06-12,cancelled,invoice,2024-06-12 18:01:00
+1006,5,2024-07-05,completed,card,2024-07-05 12:40:00
+1007,2,2024-07-08,completed,invoice,2024-07-08 15:23:00

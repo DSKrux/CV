@@ -1,0 +1,13 @@
+analytics_engineering_portfolio:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      path: "{{ env_var('DBT_DUCKDB_PATH', 'portfolio.duckdb') }}"
+      threads: 4
+      schema: analytics
+    ci:
+      type: duckdb
+      path: "{{ env_var('DBT_DUCKDB_PATH', 'portfolio_ci.duckdb') }}"
+      threads: 4
+      schema: analytics_ci

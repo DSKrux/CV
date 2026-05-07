@@ -11,6 +11,21 @@ JavaScript + d3 visualization for the CV PDF in this repository.
 
 Live app: https://performer.streamlit.app/
 
+## New Portfolio Project: Advanced dbt + Semantic Layer
+
+A full Analytics Engineering showcase project is now included in this repo:
+
+- [dbt-portfolio](dbt-portfolio)
+
+It demonstrates ownership-level dbt capabilities:
+
+- Star schema with dimensions + incremental fact model
+- Snapshot-driven SCD2 history
+- Reusable macros + package usage (`dbt_utils`, `dbt_expectations`)
+- Advanced testing strategy (native, package, and custom generic tests)
+- MetricFlow semantic models + business metrics
+- GitHub Actions CI pipeline
+
 ## What It Shows
 
 - Interactive PDF viewer (page navigation + zoom)
