@@ -91,7 +91,7 @@ Use this HTML snippet in your broader portfolio site and replace the links:
 		<li>Highlights: SQL generation, chart auto-rendering, date-safe SQL hardening</li>
 	</ul>
 	<p>
-		<a href="https://your-streamlit-app-url" target="_blank" rel="noopener">Live Demo</a>
+		<a href="https://performer.streamlit.app/" target="_blank" rel="noopener">Live Demo</a>
 		|
 		<a href="https://github.com/DSKrux/CV/tree/main/analytics-chat" target="_blank" rel="noopener">Source Code</a>
 	</p>
