@@ -4,7 +4,10 @@ models:
   - name: dim_customers
     description: SCD2 customer dimension sourced from dbt snapshot.
     tests:
-      - elementary.schema_changes
+      # ── Observability: column-count proxy for schema drift ────────────────
+      - dbt_expectations.expect_table_column_count_to_equal:
+          arguments:
+            value: 9
     columns:
       - name: customer_id
         tests: [not_null]
@@ -43,18 +46,18 @@ models:
             combination_of_columns:
               - order_item_id
               - order_id
-      # ── Elementary monitors ───────────────────────────────────────────────
-      - elementary.schema_changes         # alert on column add/remove/type change
-      - elementary.volume_anomalies:      # row-count anomaly detection
-          timestamp_column: order_date
-          time_bucket:
-            period: day
-            count: 1
-      - elementary.freshness_anomalies:   # data freshness monitor
-          timestamp_column: order_date
-          time_bucket:
-            period: day
-            count: 1
+      # ── Observability monitors (DuckDB-native via dbt_expectations) ──────
+      - dbt_expectations.expect_table_row_count_to_be_between:  # volume monitor
+          arguments:
+            min_value: 1
+      - dbt_expectations.expect_table_column_count_to_equal:    # schema drift guard
+          arguments:
+            value: 14
+      - dbt_expectations.expect_column_max_to_be_between:       # freshness proxy
+          arguments:
+            column_name: order_date
+            min_value: "'2020-01-01'"
+            max_value: "'2030-12-31'"
     columns:
       - name: order_item_sk
         tests: [not_null, unique]

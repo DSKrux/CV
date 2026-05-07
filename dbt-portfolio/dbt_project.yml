@@ -4,10 +4,6 @@ config-version: 2
 
 profile: analytics_engineering_portfolio
 
-# Elementary: populate audit tables after every run
-on-run-end:
-  - "{{ elementary.on_run_end() }}"
-
 model-paths: ["models"]
 seed-paths: ["seeds"]
 macro-paths: ["macros"]
@@ -25,10 +21,6 @@ models:
       +materialized: view
     marts:
       +materialized: table
-  # Elementary internal audit models — always table-materialized in own schema
-  elementary:
-    +schema: elementary
-    +materialized: table
 
 seeds:
   analytics_engineering_portfolio:

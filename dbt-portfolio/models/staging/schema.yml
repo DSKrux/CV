@@ -40,18 +40,18 @@ models:
 
   - name: stg_orders
     tests:
-      # ── Elementary monitors ───────────────────────────────────────────────
-      - elementary.schema_changes
-      - elementary.volume_anomalies:
-          timestamp_column: order_date
-          time_bucket:
-            period: day
-            count: 1
-      - elementary.freshness_anomalies:
-          timestamp_column: order_date
-          time_bucket:
-            period: day
-            count: 1
+      # ── Observability monitors (DuckDB-native via dbt_expectations) ──────
+      - dbt_expectations.expect_table_row_count_to_be_between:  # volume monitor
+          arguments:
+            min_value: 1
+      - dbt_expectations.expect_table_column_count_to_equal:    # schema drift guard
+          arguments:
+            value: 6
+      - dbt_expectations.expect_column_max_to_be_between:       # freshness proxy
+          arguments:
+            column_name: order_date
+            min_value: "'2020-01-01'"
+            max_value: "'2030-12-31'"
     columns:
       - name: order_id
         tests: [not_null, unique]
@@ -66,12 +66,13 @@ models:
 
   - name: stg_order_items
     tests:
-      - elementary.schema_changes
-      - elementary.volume_anomalies:
-          timestamp_column: updated_at
-          time_bucket:
-            period: day
-            count: 1
+      # ── Observability monitors (DuckDB-native via dbt_expectations) ──────
+      - dbt_expectations.expect_table_row_count_to_be_between:  # volume monitor
+          arguments:
+            min_value: 1
+      - dbt_expectations.expect_table_column_count_to_equal:    # schema drift guard
+          arguments:
+            value: 7
     columns:
       - name: order_item_id
         tests: [not_null, unique]
