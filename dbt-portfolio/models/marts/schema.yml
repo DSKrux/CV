@@ -3,6 +3,8 @@ version: 2
 models:
   - name: dim_customers
     description: SCD2 customer dimension sourced from dbt snapshot.
+    tests:
+      - elementary.schema_changes
     columns:
       - name: customer_id
         tests: [not_null]
@@ -41,6 +43,18 @@ models:
             combination_of_columns:
               - order_item_id
               - order_id
+      # ── Elementary monitors ───────────────────────────────────────────────
+      - elementary.schema_changes         # alert on column add/remove/type change
+      - elementary.volume_anomalies:      # row-count anomaly detection
+          timestamp_column: order_date
+          time_bucket:
+            period: day
+            count: 1
+      - elementary.freshness_anomalies:   # data freshness monitor
+          timestamp_column: order_date
+          time_bucket:
+            period: day
+            count: 1
     columns:
       - name: order_item_sk
         tests: [not_null, unique]

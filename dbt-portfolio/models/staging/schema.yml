@@ -39,6 +39,19 @@ models:
           - non_negative
 
   - name: stg_orders
+    tests:
+      # ── Elementary monitors ───────────────────────────────────────────────
+      - elementary.schema_changes
+      - elementary.volume_anomalies:
+          timestamp_column: order_date
+          time_bucket:
+            period: day
+            count: 1
+      - elementary.freshness_anomalies:
+          timestamp_column: order_date
+          time_bucket:
+            period: day
+            count: 1
     columns:
       - name: order_id
         tests: [not_null, unique]
@@ -52,6 +65,13 @@ models:
         tests: [not_null]
 
   - name: stg_order_items
+    tests:
+      - elementary.schema_changes
+      - elementary.volume_anomalies:
+          timestamp_column: updated_at
+          time_bucket:
+            period: day
+            count: 1
     columns:
       - name: order_item_id
         tests: [not_null, unique]

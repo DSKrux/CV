@@ -43,10 +43,27 @@ jobs:
         env:
           DBT_DUCKDB_PATH: portfolio_ci.duckdb
         run: |
-          dbt seed    --profiles-dir profiles --target ci
+          dbt seed     --profiles-dir profiles --target ci
           dbt snapshot --profiles-dir profiles --target ci
-          dbt build   --profiles-dir profiles --target ci
-          dbt parse   --profiles-dir profiles --target ci
+          dbt build    --profiles-dir profiles --target ci
+          dbt parse    --profiles-dir profiles --target ci
+
+      - name: Initialise Elementary audit tables
+        env:
+          DBT_DUCKDB_PATH: portfolio_ci.duckdb
+        run: dbt run --select elementary --profiles-dir profiles --target ci
+
+      - name: Generate Elementary observability report
+        env:
+          DBT_DUCKDB_PATH: portfolio_ci.duckdb
+        run: edr report --profiles-dir profiles --target ci
+
+      - name: Upload Elementary report
+        uses: actions/upload-artifact@v4
+        with:
+          name: elementary-report
+          path: dbt-portfolio/edr_target/elementary_report.html
+          retention-days: 30
 
       - name: Upload production manifest
         uses: actions/upload-artifact@v4
