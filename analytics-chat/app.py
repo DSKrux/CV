@@ -601,10 +601,23 @@ def main() -> None:
     # Sidebar
     with st.sidebar:
         st.header("⚙️ Settings")
-        default_provider = "openai" if get_secret_or_env("OPENAI_API_KEY") else "ollama"
-        provider = st.selectbox("LLM provider", options=["ollama", "openai"], index=0 if default_provider == "ollama" else 1)
+        configured_provider = get_secret_or_env("LLM_PROVIDER").strip().lower()
+        default_provider = (
+            configured_provider
+            if configured_provider in {"ollama", "openai"}
+            else ("openai" if get_secret_or_env("OPENAI_API_KEY") else "ollama")
+        )
+        provider = st.selectbox(
+            "LLM provider",
+            options=["ollama", "openai"],
+            index=0 if default_provider == "ollama" else 1,
+        )
 
         if provider == "ollama":
+            st.caption(
+                "Ollama must be running on the same machine as this app. "
+                "For Streamlit Cloud, use OpenAI and configure `OPENAI_API_KEY` in app secrets."
+            )
             model = st.text_input(
                 "Ollama model",
                 value=DEFAULT_MODEL,
@@ -730,6 +743,12 @@ def main() -> None:
                     )
                 except Exception as e:
                     msg = f"Error: {e}"
+                    if provider == "ollama" and "failed to connect to ollama" in str(e).lower():
+                        msg = (
+                            "Could not connect to Ollama. Ollama must be running and accessible "
+                            "from the machine hosting this Streamlit app. For Streamlit Cloud, add "
+                            "`OPENAI_API_KEY` to the app's Secrets and select the OpenAI provider."
+                        )
                     st.error(msg)
                     st.session_state.history.append(
                         {"role": "assistant", "sql": "", "df": None, "question": question, "error": msg}

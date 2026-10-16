@@ -86,6 +86,7 @@ analytics-chat/app.py
 4. Add secrets in Streamlit:
 
 ```toml
+LLM_PROVIDER = "openai"
 OPENAI_API_KEY = "your_api_key_here"
 OPENAI_MODEL = "gpt-4o-mini"
 # optional, defaults to https://api.openai.com/v1
@@ -96,8 +97,8 @@ OPENAI_BASE_URL = "https://api.openai.com/v1"
 
 ### Local vs Cloud Modes
 
-- Local mode: choose `ollama` provider in sidebar and use model `llama3`.
-- Cloud mode: choose `openai` provider (or set secrets so it defaults there).
+- Streamlit Cloud cannot connect to Ollama running on your personal computer. Set `LLM_PROVIDER = "openai"` and configure `OPENAI_API_KEY` in the app's Secrets.
+- Local mode: choose `ollama` provider in the sidebar and use model `llama3`. If `LLM_PROVIDER` is not set, the app defaults to OpenAI when `OPENAI_API_KEY` is configured, and Ollama otherwise.
 
 ## Portfolio Project Card Template
 
